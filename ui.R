@@ -8,26 +8,77 @@
 #
 
 library(shiny)
+library(shinydashboard)
+library(plotly)
 
 # Define UI for application that draws a histogram
-shinyUI(fluidPage(
-  
-  # Application title
-  titlePanel("Old Faithful Geyser Data"),
-  
-  # Sidebar with a slider input for number of bins 
-  sidebarLayout(
-    sidebarPanel(
-       sliderInput("bins",
-                   "Number of bins:",
-                   min = 1,
-                   max = 50,
-                   value = 30)
-    ),
-    
-    # Show a plot of the generated distribution
-    mainPanel(
-       plotOutput("distPlot")
-    )
-  )
-))
+ui <- fluidPage(
+        theme = shinythemes::shinytheme("superhero"),
+        titlePanel("DATRAS data mining app"),
+        
+        sidebarLayout(
+                sidebarPanel(
+                        #For surveys
+                        selectInput("survey", "Survey", icesDatras::getSurveyList()),
+                        
+                        # For years
+                        uiOutput("years"),
+                        
+                        # For quarters
+                        uiOutput("quarters"),
+                        
+                        # for debugging
+                        verbatimTextOutput("debug_text")
+                        ),
+                
+                mainPanel(
+                        
+                        tabsetPanel(type = "tabs",
+                                    tabPanel("Haul information",
+                                             tabsetPanel(
+                                                     tabPanel("Tab 1",
+                                                              fluidRow(valueBoxOutput("haulValueBox"),
+                                                                       valueBoxOutput("validValueBox"),
+                                                                       valueBoxOutput("statrecValueBox")
+                                                              ),
+                                                              
+                                                              textOutput("mapDivider1"),
+                                                              plotlyOutput("haulPlot",width = "100%", height = "350px"),
+                                                              textOutput("mapDivider2"),
+                                                              plotlyOutput("statrecPlot", width = "100%", height = "350px")
+                                                     ),
+                                                     tabPanel("Tab 2", 
+                                                              fluidRow(
+                                                                      splitLayout(cellWidths = c("50%", "50%"), plotlyOutput("HHoutplot1"), plotlyOutput("HHoutplot2"))
+                                                              ),
+                                                              fluidRow(
+                                                                      splitLayout(cellWidths = c("50%", "50%"),plotlyOutput("HHoutplot3"),plotlyOutput("HHoutplot4"))
+                                                     )),
+                                                     tabPanel("Tab 3", "This panel is intentionally left blank"))
+                                    ),
+                                    tabPanel("HL properties",
+                                             tabsetPanel(
+                                                     tabPanel("Tab 1",
+                                                              valueBoxOutput("speciesHLValueBox"),
+                                                              tableOutput("HLspeciesrecords")),
+                                                     tabPanel("Tab 2",
+                                                              plotOutput("HLoutplot1")
+                                                              ))
+                                    ),
+                                    tabPanel("CA properties",
+                                             tabsetPanel(
+                                            tabPanel("Tab 1",
+                                                     valueBoxOutput("speciesCAValueBox"),
+                                                     tableOutput("CAspeciesrecords")),
+                                            tabPanel("Tab 2",
+                                                     plotOutput("CAoutplot1")),
+                                            tabPanel("Tab 3",
+                                                     plotOutput("CAoutplot2"))
+                                            )
+                                    )
+                        )
+                        )
+        )
+)
+
+                                            
