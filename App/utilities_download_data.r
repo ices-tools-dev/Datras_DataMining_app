@@ -1,0 +1,6 @@
+# df <- read_xml("https://datras.ices.dk/WebServices/DATRASWebService.asmx/getSubmissionStatus_FishTrawlData")
+        # df_xml <- xmlParse(df)
+        # df_r <- xmlToDataFrame(df_xml)
+        # new_df <- df_r %>% select(Survey, Year, Quarter, Country)
+        print(getwd())
+new_df <- fread(file = "df_filter.csv", sep = ",")
