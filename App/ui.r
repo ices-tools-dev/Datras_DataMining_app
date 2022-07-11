@@ -27,7 +27,7 @@ library(XML)
 library(shinythemes)
 
 source("utilities_download_data.r")
-
+source("utilities_mapping.r")
 
 title_html <- tags$a(
     href = "https://ices-taf.shinyapps.io/DATRAS-data-mining/",
@@ -62,23 +62,26 @@ navbarPage(
                         width = 4, style = "max-height: 90vh; overflow-y: auto;",
                         panel(
                                 # For surveys
-                                selectizeInput(
-                                        inputId = "survey",
-                                        label = "Surveys :",
-                                        choices = new_df$Survey,
-                                        selected = "BITS",
-                                        multiple = FALSE,
-                                        width = "100%"
-                                        #                         options = list(
-                                        #                         placeholder = "Select Ecoregion(s)"
-                                        # )
-                                ),
+                                # selectizeInput(
+                                #         inputId = "survey",
+                                #         label = "Surveys :",
+                                #         choices = new_df$Survey,
+                                #         selected = "BITS",
+                                #         multiple = FALSE,
+                                #         width = "100%"
+                                #         #                         options = list(
+                                #         #                         placeholder = "Select Ecoregion(s)"
+                                #         # )
+                                # ),
                                 selectizeGroupUI(
                                         id = "my-filters",
-                                        params = list(                                                
+                                        params = list(    
+                                                Survey = list(inputId = "Survey", title = "Survey:"),                                        
                                                 Year = list(inputId = "Year", title = "Years:"),
                                                 Quarter = list(inputId = "Quarter", title = "Quarters:"),
-                                                Country = list(inputId = "Country", title = "Countries:")
+                                                Country = list(inputId = "Country", title = "Countries:"),
+                                                Ship = list(inputId = "Ship", title = "Ship:"),
+                                                Gear = list(inputId = "Gear", title = "Gear:")
                                         ),
                                         inline = FALSE
                                 ),

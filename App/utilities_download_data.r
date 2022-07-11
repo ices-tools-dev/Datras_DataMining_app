@@ -2,5 +2,5 @@
         # df_xml <- xmlParse(df)
         # df_r <- xmlToDataFrame(df_xml)
         # new_df <- df_r %>% select(Survey, Year, Quarter, Country)
-        print(getwd())
-new_df <- fread(file = "df_filter.csv", sep = ",")
+print(getwd())
+new_df <- fread(file = "df.csv", sep = ",")
