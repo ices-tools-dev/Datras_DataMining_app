@@ -127,12 +127,15 @@ navbarPage(
                                                 ),
                                                 tabPanel(
                                                         "Tab 2",
-                                                        fluidRow(
-                                                                splitLayout(cellWidths = c("50%", "50%"), plotlyOutput("HHoutplot1"), plotlyOutput("HHoutplot2"))
-                                                        ),
-                                                        fluidRow(
-                                                                splitLayout(cellWidths = c("50%", "50%"), plotlyOutput("HHoutplot3"), plotlyOutput("HHoutplot4"))
-                                                        )
+                                                        selectInput(inputId = "var_to_plot", label ="HH variables:", 
+                                                                choices = c(names(new_df_HH)), multiple = TRUE, selected = "Distance"),
+                                                        plotlyOutput("HHoutplot1")       
+                                                        # fluidRow(
+                                                        #         splitLayout(cellWidths = c("50%", "50%"), plotlyOutput("HHoutplot1"), plotlyOutput("HHoutplot2"))
+                                                        # ),
+                                                        # fluidRow(
+                                                        #         splitLayout(cellWidths = c("50%", "50%"), plotlyOutput("HHoutplot3"), plotlyOutput("HHoutplot4"))
+                                                        # )
                                                 ),
                                                 tabPanel("Tab 3", "This panel is intentionally left blank")
                                         )
