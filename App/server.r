@@ -1,4 +1,6 @@
 source("utilities_download_data.r")
+
+
 server <- function(input, output, session) {
         
         
@@ -35,6 +37,13 @@ server <- function(input, output, session) {
         )
 
         HH <- eventReactive(req(input$filter_data), {
+
+                
+                if (isTRUE(input$valid_hauls)){
+                       res_mod <- res_mod() %>% filter(HaulVal == "V")
+                } else {
+                       res_mod <- res_mod() 
+                }
                 #     session$sendCustomMessage(type = 'testmessage',
                 #       message = 'Thank you for clicking')
                 # print(input$survey)
@@ -45,7 +54,7 @@ server <- function(input, output, session) {
                 
                 # fwrite(df, file = "df.csv")
                 # print(tibble(HH))
-                res_mod()
+                # res_mod()
         })
 
 
@@ -99,7 +108,7 @@ server <- function(input, output, session) {
         # #   })
 
         output$haulPlot <- renderPlotly({
-                d <- HH() %>% filter(HaulVal == "V")
+                d <- HH() #%>% filter(HaulVal == "V")
                 # europe_shape <-
                 #         rnaturalearth::ne_countries(
                 #                 scale = 10, type = "countries",

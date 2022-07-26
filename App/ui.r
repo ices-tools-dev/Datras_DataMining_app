@@ -88,6 +88,7 @@ navbarPage(
                                 heading = "Data filtering",
                                 status = "primary",
                                 tags$head(tags$script(src = "message-handler.js")),
+                                checkboxInput("valid_hauls", "Valid Hauls", TRUE),
                                 actionButton(inputId = "filter_data", label = "Filter", width = "100%")
                         )
                 ),
