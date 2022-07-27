@@ -170,7 +170,7 @@ server <- function(input, output, session) {
                 # get_map("http://gis.ices.dk/shapefiles/ICES_rectangles.zip")
                 # stat_rec <- sf::st_read(dsn = tmp_path, quiet = FALSE)
                 # stat_rec <- sf::st_transform(stat_rec, crs = crs)
-                a <- HH() %>% filter(HaulVal == "V")
+                a <- HH() #%>% filter(HaulVal == "V")
                 
                 d <- a %>%
                         group_by(StatRec) %>%
@@ -210,41 +210,58 @@ server <- function(input, output, session) {
                   num_hauls <- nrow(HH())
                   num_hauls <- as.numeric(num_hauls)
                   valueBox(num_hauls,
-                           "Total number of hauls", icon = icon("ship"),
+                           "Total number of hauls", 
                            color = 'aqua')
           })
                 output$validValueBox <- renderValueBox({
                         num_hauls <- length(HH()$HaulVal == "V")
                         num_hauls <- as.numeric(num_hauls)
                         valueBox(num_hauls,
-                                 "valid hauls",
-                                 icon = icon("check"))
+                                 "valid hauls"
+                                 )
                 })
                 output$statrecValueBox <- renderValueBox({
                         num_hauls <- length(unique(HH()$StatRec))
                         num_hauls <- as.numeric(num_hauls)
                         valueBox(num_hauls,
-                                 "Statistical rectangles sampled",
-                                 icon = icon("map"))
+                                 "Statistical rectangles sampled"
+                                 )
                 })
 
-                  output$HHoutplot1 <- renderPlotly({
-                        #   print(input$group)
-                          df <- HH() %>% select(c(HaulNo, Country, input$var_to_plot))
-                        #   print(df)
-                          df_long <- df %>%
-                                  #   select(-Country) %>%
-                                  tidyr::gather(variable, value, -c(HaulNo, Country))
+                #   output$HHoutplot1 <- renderPlotly({
+                #         #   print(input$group)
+                #           df <- HH() %>% select(c(HaulNo, Country, input$var_to_plot))
+                #         #   print(df)
+                #           df_long <- df %>%
+                #                   #   select(-Country) %>%
+                #                   tidyr::gather(variable, value, -c(HaulNo, Country))
                                   
-                                  gg <- ggplot(data = df_long, aes(x = HaulNo, y = value, color = Country)) +
-                                  geom_point(size = 1) +
-                                  facet_wrap(~variable, scales = "free_y")
-                                ggplotly(gg)
+                #                   gg <- ggplot(data = df_long, aes(x = HaulNo, y = value, color = Country)) +
+                #                   geom_point(size = 1) +
+                #                   facet_wrap(~variable, scales = "free_y")
+                #                 ggplotly(gg)
                           #   ggplotly(ggplot(HH(), aes(HaulNo, Distance, color = Country)) + geom_point())
-                  })
-                #   output$HHoutplot2 <- renderPlotly({
-                #           ggplotly(ggplot(HH(), aes(HaulNo, HaulDur, color = Country)) + geom_point())
                 #   })
+                  output$HHoutplot1 <- renderPlotly({                          
+                          df <- HH() %>% select(c(input$plot1_x_axis, input$plot1_y_axis, input$plot1_groupby))                          
+                          gg <- ggplot(data = df, aes(x = df[,1], y = df[,2], color = df[,3])) + geom_point(size = 1) + labs(x = input$plot1_x_axis, y = input$plot1_y_axis, colour = input$plot1_groupby)
+                          ggplotly(gg)
+                  })
+                  output$HHoutplot2 <- renderPlotly({                          
+                          df <- HH() %>% select(c(input$plot2_x_axis, input$plot2_y_axis, input$plot2_groupby))                          
+                          gg <- ggplot(data = df, aes(x = df[,1], y = df[,2], color = df[,3])) + geom_point(size = 1) + labs(x = input$plot2_x_axis, y = input$plot2_y_axis, colour = input$plot2_groupby)
+                          ggplotly(gg)
+                  })
+                  output$HHoutplot3 <- renderPlotly({                          
+                          df <- HH() %>% select(c(input$plot3_x_axis, input$plot3_y_axis, input$plot3_groupby))                          
+                          gg <- ggplot(data = df, aes(x = df[,1], y = df[,2], color = df[,3])) + geom_point(size = 1) + labs(x = input$plot3_x_axis, y = input$plot3_y_axis, colour = input$plot3_groupby)
+                          ggplotly(gg)
+                  })
+                  output$HHoutplot4 <- renderPlotly({                          
+                          df <- HH() %>% select(c(input$plot4_x_axis, input$plot4_y_axis, input$plot4_groupby))                          
+                          gg <- ggplot(data = df, aes(x = df[,1], y = df[,2], color = df[,3])) + geom_point(size = 1) + labs(x = input$plot4_x_axis, y = input$plot4_y_axis, colour = input$plot4_groupby)
+                          ggplotly(gg)
+                  })
                 #   output$HHoutplot3 <- renderPlotly({
                 #           ggplotly(ggplot(HH(), aes(HaulNo, DoorSpread, color = Country)) + geom_point())
                 #   })

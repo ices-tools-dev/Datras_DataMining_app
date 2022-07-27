@@ -128,9 +128,52 @@ navbarPage(
                                                 ),
                                                 tabPanel(
                                                         "Tab 2",
-                                                        selectInput(inputId = "var_to_plot", label ="HH variables:", 
-                                                                choices = c(names(new_df_HH)), multiple = TRUE, selected = "Distance"),
-                                                        plotlyOutput("HHoutplot1")       
+                                                        fluidRow(
+                                                                column(width = 6,
+                                                        # selectInput(inputId = "var_to_plot", label ="HH variables:", 
+                                                        #         choices = c(names(new_df_HH)), multiple = TRUE, selected = "Distance"),
+                                                        div(style="display: inline-block;vertical-align:top; width: 150px;",
+                                                        selectizeInput(inputId = "plot1_x_axis", label ="x axis:", 
+                                                                choices = names(new_df_HH), multiple = FALSE, selected = "HaulDur", width = '100%')), #.selectize-input { white-space: nowrap !important; }
+                                                        div(style="display: inline-block;vertical-align:top; width: 150px;",
+                                                        selectizeInput(inputId = "plot1_y_axis", label ="y axis:", 
+                                                                choices = names(new_df_HH), multiple = FALSE, selected = "HaulNo", width = '100%')),                                                        
+                                                        div(style="display: inline-block;vertical-align:top; width: 150px;",
+                                                        selectizeInput(inputId = "plot1_groupby", label ="group by:", 
+                                                                choices = names(new_df_HH), multiple = FALSE, selected = "Ship", width = '100%')),                                                        
+                                                        plotlyOutput("HHoutplot1"),
+                                                        div(style="display: inline-block;vertical-align:top; width: 150px;",
+                                                        selectizeInput(inputId = "plot2_x_axis", label ="x axis:", 
+                                                                choices = names(new_df_HH), multiple = FALSE, selected = "DoorSpread", width = '100%')), #.selectize-input { white-space: nowrap !important; }
+                                                        div(style="display: inline-block;vertical-align:top; width: 150px;",
+                                                        selectizeInput(inputId = "plot2_y_axis", label ="y axis:", 
+                                                                choices = names(new_df_HH), multiple = FALSE, selected = "Country", width = '100%')),                                                        
+                                                        div(style="display: inline-block;vertical-align:top; width: 150px;",
+                                                        selectizeInput(inputId = "plot2_groupby", label ="group by:", 
+                                                                choices = names(new_df_HH), multiple = FALSE, selected = "Year", width = '100%')),                                                        
+                                                        plotlyOutput("HHoutplot2")
+                                                        ),
+                                                        column(width = 6,
+                                                        div(style="display: inline-block;vertical-align:top; width: 150px;",
+                                                        selectizeInput(inputId = "plot3_x_axis", label ="x axis:", 
+                                                                choices = names(new_df_HH), multiple = FALSE, selected = "WingSpread", width = '100%')), #.selectize-input { white-space: nowrap !important; }
+                                                        div(style="display: inline-block;vertical-align:top; width: 150px;",
+                                                        selectizeInput(inputId = "plot3_y_axis", label ="y axis:", 
+                                                                choices = names(new_df_HH), multiple = FALSE, selected = "Country", width = '100%')),                                                        
+                                                        div(style="display: inline-block;vertical-align:top; width: 150px;",
+                                                        selectizeInput(inputId = "plot3_groupby", label ="group by:", 
+                                                                choices = names(new_df_HH), multiple = FALSE, selected = "Year", width = '100%')),                                                        
+                                                        plotlyOutput("HHoutplot3"),
+                                                        div(style="display: inline-block;vertical-align:top; width: 150px;",
+                                                        selectizeInput(inputId = "plot4_x_axis", label ="x axis:", 
+                                                                choices = names(new_df_HH), multiple = FALSE, selected = "Distance", width = '100%')), #.selectize-input { white-space: nowrap !important; }
+                                                        div(style="display: inline-block;vertical-align:top; width: 150px;",
+                                                        selectizeInput(inputId = "plot4_y_axis", label ="y axis:", 
+                                                                choices = names(new_df_HH), multiple = FALSE, selected = "DoorSpread", width = '100%')),                                                        
+                                                        div(style="display: inline-block;vertical-align:top; width: 150px;",
+                                                        selectizeInput(inputId = "plot4_groupby", label ="group by:", 
+                                                                choices = names(new_df_HH), multiple = FALSE, selected = "Country", width = '100%')),                                                        
+                                                        plotlyOutput("HHoutplot4")) )      
                                                         # fluidRow(
                                                         #         splitLayout(cellWidths = c("50%", "50%"), plotlyOutput("HHoutplot1"), plotlyOutput("HHoutplot2"))
                                                         # ),
